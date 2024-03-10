@@ -1,27 +1,17 @@
 #include <string>
 #include <vector>
-#include <set>
+#include <algorithm>
 
 using namespace std;
 
-set<string> phoneSet;
-
 bool solution(vector<string> phone_book) {
-    bool answer = true;
+    sort(phone_book.begin(), phone_book.end());
     
-    for(const auto&p : phone_book) {
-        phoneSet.insert(p);
-    }
-    
-    for(const auto& p : phone_book) {
-        string temp = "";
-        for(int i = 0; i < p.length() - 1; ++i) {
-            temp += p[i];
-            if(phoneSet.find(temp) != phoneSet.end()) {
-                return false;
-            }
+    for (int i = 0; i < phone_book.size() - 1; ++i) {
+        if (phone_book[i + 1].substr(0, phone_book[i].length()) == phone_book[i]) {
+            return false;
         }
     }
-      
+    
     return true;
 }
