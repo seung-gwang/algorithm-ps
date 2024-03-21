@@ -11,10 +11,10 @@ const int dx[] = { 0,0,-1,1 };
 int maxArea;
 int paintCnt;
 
-int curArea;
-void DFS(const int cy, const int cx) {
+int DFS(const int cy, const int cx, const int curArea) {
     visit[cy][cx] = true;
-    curArea++;
+    int ret = curArea;
+    ret++;
 
     for (int dir = 0; dir < 4; ++dir) {
         int ny = cy + dy[dir];
@@ -24,8 +24,10 @@ void DFS(const int cy, const int cx) {
             continue;
         }
 
-        DFS(ny, nx);
+        ret = DFS(ny, nx, ret);
     }
+
+    return ret;
 }
 
 void solve() {
@@ -43,8 +45,8 @@ void solve() {
     for (int y = 0; y < M; ++y) {
         for (int x = 0; x < N; ++x) {
             if (!visit[y][x] && map[y][x] == 1) {
-                curArea = 0;
-                DFS(y, x);
+                //curArea = 0;
+                int curArea = DFS(y, x, 0);
                 paintCnt++;
                 maxArea = maxArea > curArea ? maxArea : curArea;
             }
