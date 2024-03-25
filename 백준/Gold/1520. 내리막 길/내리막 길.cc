@@ -9,15 +9,11 @@ int dx[] = { 0,0,-1,1 };
 bool visit[500][500];
 int dp[500][500];
 
-int routeCnt;
-
 int DFS(const int cy, const int cx) {
 
     if (dp[cy][cx] != -1) {
         return dp[cy][cx];
     }
-
-    
 
     if (cy == M - 1 && cx == N - 1) {
         dp[cy][cx] = 1;
@@ -53,7 +49,6 @@ int DFS(const int cy, const int cx) {
 }
 
 void solve() {
-    routeCnt = 0;
     cin >> M >> N;
     for (int y = 0; y < M; ++y) {
         for (int x = 0; x < N; ++x) {
@@ -65,8 +60,6 @@ void solve() {
 
     visit[0][0] = true;
     cout << DFS(0, 0);
-
-    
 }
 
 int main() {
