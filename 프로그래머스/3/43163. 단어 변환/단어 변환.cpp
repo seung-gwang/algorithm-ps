@@ -24,10 +24,7 @@ int solution(string begin, string target, vector<string> words) {
         return 0;
     }
     
-    answer = DFS(begin, 0);
-    
-    
-    return answer;
+    return DFS(begin, 0);
 }
 
 int DFS(string cur, int cnt) {
