@@ -9,6 +9,7 @@ vector<vector<int>> solution(vector<vector<int>> arr1, vector<vector<int>> arr2)
     int m = arr1.size();
     int n = arr2[0].size();
     int l = arr2.size(); 
+    
     answer.resize(m);
     for(int i = 0; i < m; ++i) {
         answer[i].resize(n, 0);
