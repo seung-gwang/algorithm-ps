@@ -1,38 +1,36 @@
+#include <string>
 #include <vector>
 
 using namespace std;
-int A[200][200];
-int V[200];
-int N;
 
-void DFS(const int cur) {
-    for(int next = 0; next < N; ++next) {
-        if(cur == next || A[cur][next] == 0 || V[next]) {continue;}
-        V[next] = true;
-        DFS(next);
+void DFS(const int curIdx, vector<vector<int>>& A, vector<bool>& visit) {
+    visit[curIdx] = true;
+    for(int next : A[curIdx]) {
+        if(visit[next]) {continue;}
+        DFS(next, A, visit);
     }
 }
 
 int solution(int n, vector<vector<int>> computers) {
     int answer = 0;
-    N = n;
-    for(int i = 0; i < N; ++i) {
-        V[i] = false;
-    }
+    vector<vector<int>> A(n);
+    vector<bool> visit(n, false);
     
-    for(int i = 0; i < N; ++i) {
-        for(int j = 0; j < N; ++j) {
-            A[i][j] = computers[i][j];
+    for(int i = 0; i < n; ++i) {
+        for(int j = 0; j < n; ++j) {
+            if(computers[i][j] == 1) {
+                A[i].push_back(j);
+            }
         }
     }
     
-    for(int i = 0; i < N; ++i) {
-        if(V[i] == false) {
-            V[i] = true;
-            DFS(i);
-            answer++;
-        }
+    int networkCnt = 0;
+    for(int i = 0; i < n; ++i) {
+        if(visit[i]) {continue;}
+        DFS(i, A, visit);
+        networkCnt++;
     }
     
+    answer = networkCnt;
     return answer;
 }
