@@ -1,7 +1,4 @@
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Queue;
-import java.util.LinkedList;
 
 class Solution {
     public int solution(int cacheSize, String[] cities) {
