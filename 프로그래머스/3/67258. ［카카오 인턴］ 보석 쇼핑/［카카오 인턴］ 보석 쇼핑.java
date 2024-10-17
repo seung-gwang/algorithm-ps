@@ -3,33 +3,36 @@ import java.util.*;
 class Solution {
     public int[] solution(String[] gems) {
         Set<String> gemSet = new HashSet<>(Arrays.asList(gems));
-        int gemTypeCount = gemSet.size(); 
+        Map<String, Integer> gemCnt = new HashMap<>();
         
-        Map<String, Integer> gemCount = new HashMap<>();
-        int left = 0, right = 0;
-        
+        int left = 0;
+        int right = 0;
+        int start = -1;
+        int end = -1;
         int minLen = Integer.MAX_VALUE;
-        int start = 0, end = 0;
         
-        while (right < gems.length) {
-            gemCount.put(gems[right], gemCount.getOrDefault(gems[right], 0) + 1);
-            right++;
+        while(right < gems.length) {
+            gemCnt.put(gems[right], gemCnt.getOrDefault(gems[right], 0) + 1);
             
-            while (gemCount.size() == gemTypeCount) {
-                if (right - left < minLen) {
-                    minLen = right - left;
-                    start = left + 1; 
+            while (gemCnt.size() == gemSet.size()) {
+                if(right - left + 1 < minLen) {
+                    minLen = right - left + 1;
+                    start = left;
                     end = right;
                 }
                 
-                gemCount.put(gems[left], gemCount.get(gems[left]) - 1);
-                if (gemCount.get(gems[left]) == 0) {
-                    gemCount.remove(gems[left]);
+                gemCnt.put(gems[left], gemCnt.get(gems[left]) - 1);
+                if(gemCnt.get(gems[left]) == 0) {
+                    gemCnt.remove(gems[left]);    
                 }
+                
                 left++;
             }
-        }
+            
+            right++;
+        }        
         
-        return new int[] {start, end};
+        
+        return new int[] {start+1, end+1};
     }
 }
