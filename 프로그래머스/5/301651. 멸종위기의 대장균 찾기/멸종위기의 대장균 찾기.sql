@@ -1,0 +1,17 @@
+WITH RECURSIVE EcoliHierarchy AS (
+    SELECT ID, PARENT_ID, 1 AS GENERATION
+    FROM ECOLI_DATA
+    WHERE PARENT_ID IS NULL
+    
+    UNION ALL
+    
+    SELECT e.ID, e.PARENT_ID, eh.GENERATION + 1
+    FROM ECOLI_DATA e
+    JOIN EcoliHierarchy eh ON e.PARENT_ID = eh.ID
+)
+SELECT COUNT(eh.ID) AS COUNT, eh.GENERATION
+FROM EcoliHierarchy eh
+LEFT JOIN ECOLI_DATA children ON eh.ID = children.PARENT_ID
+WHERE children.ID IS NULL  -- 자식이 없는 개체 필터링
+GROUP BY eh.GENERATION
+ORDER BY eh.GENERATION;
