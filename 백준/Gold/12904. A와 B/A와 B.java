@@ -6,12 +6,12 @@ public class Main {
     static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
     static String S;
     static String T;
-    
+
     public static void solve() throws IOException {
         S = bf.readLine();
         T = bf.readLine();
 
-        StringBuffer tb = new StringBuffer(T);
+        StringBuilder tb = new StringBuilder(T);
 
         while(tb.length() > S.length()) {
             boolean reverse = tb.charAt(tb.length() - 1) == 'B';
@@ -21,7 +21,7 @@ public class Main {
             if(reverse) {tb.reverse();}
         }
 
-        int answer = S.equals(tb.toString()) ? 1 : 0;
+        int answer = S.contentEquals(tb) ? 1 : 0;
         System.out.println(answer);
     }
 
