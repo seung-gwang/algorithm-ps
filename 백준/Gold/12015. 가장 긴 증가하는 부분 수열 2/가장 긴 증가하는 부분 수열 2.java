@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
-import java.util.Arrays;
 
 public class Main {
     static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
@@ -9,16 +8,17 @@ public class Main {
     static int[] nums;
     static int[] D;
 
-    // num보다 크거나 같은 첫 위치를 반환
     public static int bSearch(int num, int lIdx, int rIdx) {
-        while (lIdx < rIdx) {
+        while(lIdx < rIdx) {
             int mIdx = (lIdx + rIdx) / 2;
-            if (D[mIdx] < num) {
-                lIdx = mIdx + 1; // 오른쪽으로 이동
-            } else {
-                rIdx = mIdx; // 왼쪽으로 이동
+            if(D[mIdx] < num) {
+                lIdx = mIdx + 1;
+            }
+            else {
+                rIdx = mIdx;
             }
         }
+
         return lIdx;
     }
 
@@ -28,25 +28,24 @@ public class Main {
         D = new int[N];
 
         String[] ln = bf.readLine().split(" ");
-        for (int i = 0; i < N; ++i) {
+        for(int i = 0; i < N; ++i) {
             nums[i] = Integer.parseInt(ln[i]);
+            D[i] = Integer.MAX_VALUE;
         }
 
-        // D 배열 초기화
-        Arrays.fill(D, Integer.MAX_VALUE);
-
         int maxIdx = 0;
-        D[0] = nums[0]; // 첫 번째 원소 배치
-        for (int i = 1; i < N; ++i) {
-            if (nums[i] > D[maxIdx]) {
+        D[0] = nums[0];
+        for(int i = 1; i < N; ++i) {
+            if(D[maxIdx] < nums[i]) {
                 D[++maxIdx] = nums[i];
-            } else {
-                int curIdx = bSearch(nums[i], 0, maxIdx + 1); // 정확한 위치 찾기
+            }
+            else {
+                int curIdx = bSearch(nums[i],0, maxIdx);
                 D[curIdx] = nums[i];
             }
         }
 
-        System.out.println(maxIdx + 1); // 길이 출력 (인덱스 + 1)
+        System.out.println(maxIdx+1); //길이 : idx + 1
     }
 
     public static void main(String[] args) throws IOException {
