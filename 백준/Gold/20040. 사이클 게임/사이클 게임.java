@@ -6,24 +6,6 @@ import java.util.*;
 public class Main {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static int N, M;
-    static List<Edge> edges;
-
-    public static class Edge implements Comparable<Edge> {
-        public int a;
-        public int b;
-        public int cost;
-
-        public Edge(int a, int b, int cost) {
-            this.a = a;
-            this.b = b;
-            this.cost = cost;
-        }
-
-        public int compareTo(Edge other) {
-            return Integer.compare(this.cost, other.cost);
-        }
-    }
-
 
     public static void solve() throws IOException {
         StringTokenizer st = new StringTokenizer(br.readLine());
